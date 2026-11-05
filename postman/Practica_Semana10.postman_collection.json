@@ -1,0 +1,146 @@
+{
+  "info": {
+    "name": "Práctica Semana 10 - API Productos",
+    "description": "Pruebas CRUD de la API desarrollada con Express y MySQL.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET - Listar productos (200)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/productos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "productos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST - Crear producto (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nombre\": \"Audífonos\", \"descripcion\": \"Audífonos con cable\", \"precio\": 39.9, \"stock\": 12}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/productos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "productos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET - Producto inexistente (404)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/productos/99999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "productos",
+            "99999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT - Actualizar producto (200)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nombre\": \"Teclado mecánico\", \"descripcion\": \"Teclado actualizado\", \"precio\": 89.9, \"stock\": 10}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/productos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "productos",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "DELETE - Eliminar producto (200)",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3000/api/productos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "productos",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET - Ruta inexistente (404)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/no-existe",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "no-existe"
+          ]
+        }
+      }
+    }
+  ]
+}

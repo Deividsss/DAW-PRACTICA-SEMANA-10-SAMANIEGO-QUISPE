@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f7fb">
+    <title>Inventario | Panel de productos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="Inventario, inicio">
+          <span class="brand-mark" aria-hidden="true">in</span>
+          <span>inventario<span class="brand-dot">.</span></span>
+        </a>
+
+        <p class="nav-label">MENÚ</p>
+        <nav class="navigation" aria-label="Menú principal">
+          <a class="nav-link active" href="#productos" aria-current="page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
+            Productos
+          </a>
+          <a class="nav-link nav-link-muted" href="#resumen">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/></svg>
+            Resumen
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="help-card">
+            <span class="help-icon" aria-hidden="true">?</span>
+            <strong>¿Necesitas ayuda?</strong>
+            <p>Administra tu catálogo desde un solo lugar.</p>
+            <a href="https://expressjs.com/" target="_blank" rel="noreferrer">Conoce más <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="profile">
+            <div class="avatar" aria-hidden="true">AD</div>
+            <div class="profile-info"><strong>Administrador</strong><span>Panel de control</span></div>
+            <span class="profile-menu" aria-hidden="true">•••</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Panel</span><span class="crumb-separator">/</span><strong>Productos</strong></div>
+          <div class="topbar-right">
+            <span class="status-indicator"><span class="status-dot"></span> Sistema activo</span>
+            <span class="topbar-date" id="today-date"></span>
+          </div>
+        </header>
+
+        <section class="page-content" id="productos">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">GESTIÓN DE CATÁLOGO</p>
+              <h1>Productos</h1>
+              <p class="page-subtitle">Administra y organiza los productos de tu inventario.</p>
+            </div>
+            <button class="button button-primary" id="add-product-button" type="button">
+              <span class="plus-icon" aria-hidden="true">+</span> Agregar producto
+            </button>
+          </div>
+
+          <section class="stats-grid" id="resumen" aria-label="Resumen del inventario">
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Total de productos</span><span class="stat-icon icon-purple" aria-hidden="true">▦</span></div>
+              <div class="stat-value" id="total-products">—</div>
+              <div class="stat-foot"><span class="stat-caption">En tu catálogo</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Unidades en stock</span><span class="stat-icon icon-blue" aria-hidden="true">⌑</span></div>
+              <div class="stat-value" id="total-stock">—</div>
+              <div class="stat-foot"><span class="stat-caption">Unidades disponibles</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Valor del inventario</span><span class="stat-icon icon-green" aria-hidden="true">$</span></div>
+              <div class="stat-value" id="inventory-value">—</div>
+              <div class="stat-foot"><span class="stat-caption">Precio × unidades</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Stock bajo</span><span class="stat-icon icon-orange" aria-hidden="true">!</span></div>
+              <div class="stat-value" id="low-stock">—</div>
+              <div class="stat-foot"><span class="stat-caption">Productos con 5 unidades o menos</span></div>
+            </article>
+          </section>
+
+          <section class="catalog-card" aria-labelledby="catalog-title">
+            <div class="catalog-header">
+              <div>
+                <h2 id="catalog-title">Todos los productos</h2>
+                <p>Consulta, edita o elimina productos de tu inventario.</p>
+              </div>
+              <label class="search-box">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg>
+                <input id="search-input" type="search" placeholder="Buscar producto..." autocomplete="off" aria-label="Buscar producto">
+                <kbd>⌘ K</kbd>
+              </label>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>PRODUCTO</th><th>DESCRIPCIÓN</th><th>PRECIO</th><th>STOCK</th><th class="actions-heading">ACCIONES</th></tr>
+                </thead>
+                <tbody id="products-table">
+                  <tr><td class="table-message" colspan="5"><span class="loading-spinner"></span> Cargando productos...</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span id="results-count">Cargando resultados</span>
+              <button class="button button-outline button-small" id="refresh-button" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 9a6.5 6.5 0 0 1 11-2L20 12M4 12l2.9 5a6.5 6.5 0 0 0 11-2"/></svg>
+                Actualizar
+              </button>
+            </div>
+          </section>
+          <p class="page-footer">Inventario <span>·</span> Administración de productos</p>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title">
+      <form id="product-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">CATÁLOGO</p>
+            <h2 id="dialog-title">Agregar producto</h2>
+            <p>Completa la información del producto.</p>
+          </div>
+          <button class="dialog-close" id="close-dialog-button" type="button" aria-label="Cerrar">×</button>
+        </div>
+        <label class="form-field">Nombre <span>*</span>
+          <input name="nombre" type="text" maxlength="120" placeholder="Ej. Audífonos inalámbricos" required>
+        </label>
+        <label class="form-field">Descripción
+          <textarea name="descripcion" rows="3" placeholder="Describe brevemente el producto"></textarea>
+        </label>
+        <div class="form-row">
+          <label class="form-field">Precio <span>*</span>
+            <div class="input-prefix"><span>$</span><input name="precio" type="number" min="0" step="0.01" placeholder="0.00" required></div>
+          </label>
+          <label class="form-field">Stock <span>*</span>
+            <input name="stock" type="number" min="0" step="1" placeholder="0" required>
+          </label>
+        </div>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <div class="dialog-actions">
+          <button class="button button-outline" id="cancel-button" type="button">Cancelar</button>
+          <button class="button button-primary" id="save-button" type="submit">Guardar producto</button>
+        </div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
